@@ -10,9 +10,13 @@
         Padding="30,0"
         Spacing="25">
 
-        <Image Source="loguito.png" Aspect="AspectFit" WidthRequest="200" HeightRequest="200" />
 
-        <Label x:Name="textNombre" Text="Nombre del Autor:"/>
+            <Image x:Name="foto" BackgroundColor="AliceBlue" HeightRequest="308" WidthRequest="300"
+               HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Button Text="Seleccionar una imagen" x:Name="btnFoto" Clicked="btnFoto_Clicked"/>
+
+
+            <Label x:Name="textNombre" Text="Nombre del Autor:"/>
         <Entry x:Name="nombres" Placeholder="Ingrese Nombres" Keyboard="Text"/>
 
             <maps:Map x:Name="map" IsShowingUser="True" MapClicked="Map_OnMapClicked" HeightRequest="200" WidthRequest="250" TranslationY="-200">
