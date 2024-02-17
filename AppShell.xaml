@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Tarea_1._3_Aplicacion_de_Autores.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Tarea_1._3_Aplicacion_de_Autores.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Title="Tarea_1._3_Aplicacion_de_Autores">
+
+    <ShellContent
+        Title="Biblioteca UTH Autores de Libros"
+        ContentTemplate="{DataTemplate local:PageInicio}"
+        Route="MainPage" />
+
+</Shell>
