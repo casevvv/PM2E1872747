@@ -18,6 +18,35 @@ public partial class MapsView : ContentPage
 
     public List<Pin> Pins { get; set; } = new List<Pin>();
 
+    private async void ShareLocation_Clicked(object sender, EventArgs e)
+    {
+        try
+        {
+            var location = await Geolocation.GetLastKnownLocationAsync();
+            if (location != null)
+            {
+                // Construye el enlace a partir de la latitud y longitud
+                string mapUrl = $"https://www.google.com/maps?q={location.Latitude},{location.Longitude}";
+
+                // Comparte el enlace
+                await Share.RequestAsync(new ShareTextRequest
+                {
+                    Text = mapUrl,
+                    Title = "Compartir ubicación"
+                });
+            }
+            else
+            {
+                await DisplayAlert("Error", "No se pudo obtener la ubicación actual.", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al compartir la ubicación: {ex.Message}");
+            await DisplayAlert("Error", "Error al compartir la ubicación.", "OK");
+        }
+    }
+
 
     private async void GetValueDescription(string direccion)
     {
@@ -32,7 +61,7 @@ public partial class MapsView : ContentPage
 
             if (newLocation != null)
             {
-                string addressNew = null, city = null, nameCountry = null, postalCode = null;
+                string addressNew = null, city = null, nameCountry = null, postalCode = null, street= null;
 
                 // Obtenemos los detalles de la ubicación usando la geocodificación inversa
                 IEnumerable<Placemark> placemarks = await Geocoding.GetPlacemarksAsync(newLocation.Latitude, newLocation.Longitude);
@@ -45,19 +74,25 @@ public partial class MapsView : ContentPage
                 {
                     city = placemark.Locality;
 
-                    if (!string.IsNullOrEmpty(placemark.Thoroughfare) || !string.IsNullOrEmpty(placemark.SubThoroughfare))
+
+                    if (!string.IsNullOrEmpty(placemark.SubAdminArea))
                     {
                         // Si al menos uno de los valores está completo, se muestra esa parte de la dirección
-                        addressNew = $"{placemark.Thoroughfare} {placemark.SubThoroughfare}".Trim();
+                        addressNew += $"{placemark.SubAdminArea}".Trim();
+                    }else if (!string.IsNullOrEmpty(placemark.SubLocality))
+                    {
+                        addressNew += $"{placemark.SubLocality}".Trim();
                     }
-                    else
+                    if (!string.IsNullOrEmpty(placemark.Thoroughfare))
                     {
                         // Si ninguno de los valores está completo, se muestra un mensaje alternativo
-                        addressNew = $"{placemark.Thoroughfare} {placemark.SubThoroughfare}".Trim();
+                        street += $"{placemark.Thoroughfare}".Trim();
+                    }else if (!string.IsNullOrEmpty(placemark.SubThoroughfare))
+                    {
+                        street += $"{placemark.SubThoroughfare}".Trim();
                     }
-
+                         
                     nameCountry = placemark.CountryName;
-                    postalCode = placemark.PostalCode;
 
                 }
                 else
@@ -74,8 +109,8 @@ public partial class MapsView : ContentPage
                     Label = city,
                     BindingContext = new
                     {
-                        PostalCode = postalCode,
-                        NameCountry = nameCountry
+                        NameCountry = nameCountry,
+                        Street = street
                     }
 
                 };
@@ -109,7 +144,7 @@ public partial class MapsView : ContentPage
                             $"País: {((dynamic)pinInfo.BindingContext).NameCountry}\n" +
                             $"Ciudad: {pinInfo.Label}\n" +
                             $"Dirección: {pinInfo.Address}\n" +
-                            $"Código Postal: {((dynamic)pinInfo.BindingContext).PostalCode}",
+                            $"Calle principal y sub-calle: {((dynamic)pinInfo.BindingContext).Street}\n",
                             "OK");
     }
 

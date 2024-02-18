@@ -74,6 +74,9 @@
 	  <MauiXaml Update="Views\MapsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\PageActualizar.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\PageInicio.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

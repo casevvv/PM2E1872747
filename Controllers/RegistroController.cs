@@ -25,7 +25,6 @@ namespace Tarea_1._3_Aplicacion_de_Autores.Controllers
 
         // Inicialización
 
-
         // CREATE
         public async Task<int> AgregarRegistro(Registro registro)
         {

@@ -3,27 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Tarea_1._3_Aplicacion_de_Autores.Views.MapsView"
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
-xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
+             xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
              Title="MapsView">
-    <VerticalStackLayout
-Padding="30,0"
-Spacing="25">
+    <VerticalStackLayout Padding="30,0" Spacing="25">
 
         <maps:Map x:Name="map" IsShowingUser="True" MaximumHeightRequest="600">
             <maps:Map.ItemTemplate>
                 <DataTemplate x:DataType="maps:Pin">
                     <maps:Pin Location="{Binding Location}"
-      Address="{Binding Address}"
-      Label="{Binding Label}"/>
+                              Address="{Binding Address}"
+                              Label="{Binding Label}"/>
                 </DataTemplate>
             </maps:Map.ItemTemplate>
-
         </maps:Map>
 
-        <Entry x:Name="Descripcion" IsVisible="False" Placeholder="Ingrese una descripción" Keyboard="Text"/>
-        <Button x:Name="BtnSearchAddress" Text="Compartir ubicación"/>
+        <Button Text="Compartir Ubicación" Clicked="ShareLocation_Clicked"/>
 
-        <!--<Button x:Name="ShareLocation"  Clicked="Button_Clicked"/> -->
+        <Entry x:Name="Descripcion" IsVisible="False" Placeholder="Ingrese una descripción" Keyboard="Text"/>
 
     </VerticalStackLayout>
 </ContentPage>
