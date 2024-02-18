@@ -15,11 +15,7 @@ xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.M
                HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
             <Button Text="Seleccionar una imagen" x:Name="btnFoto" Clicked="btnFoto_Clicked"/>
 
-
-        <Label x:Name="textNombre" Text="Nombre del Autor:"/>
-        <Entry x:Name="nombres" Placeholder="Ingrese Nombres" Keyboard="Text"/>
-
-            <maps:Map x:Name="map" IsShowingUser="True" MapClicked="Map_OnMapClicked" HeightRequest="200" WidthRequest="250" TranslationY="-200">
+            <maps:Map x:Name="map" IsVisible="False">
                 <maps:Map.ItemTemplate>
                     <DataTemplate x:DataType="maps:Pin">
                         <maps:Pin Location="{Binding Location}"

@@ -24,7 +24,10 @@ namespace Tarea_1._3_Aplicacion_de_Autores.Controllers
             return imageSource;
         }
 
-       
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

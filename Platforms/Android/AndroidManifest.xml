@@ -14,4 +14,31 @@
 	<uses-feature android:name="android.hardware.location.gps" android:required="false" />
 	<uses-feature android:name="android.hardware.location.network" android:required="false" />
 	<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+	<uses-permission android:name="android.permission.CAMERA" />
+
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"  />
+
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+	<uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+	<uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
+	<uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+
+	<queries>
+		<intent>
+			<action android:name="android.media.action.IMAGE_CAPTURE" />
+
+		</intent>
+
+		<intent>
+
+			<action android:name="android.intent.action.PICK" />
+			<data android:mimeType="vnd.android.cursor.dir/image" />
+
+		</intent>
+
+	</queries>
 </manifest>
