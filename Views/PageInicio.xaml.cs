@@ -8,6 +8,9 @@ public partial class PageInicio : ContentPage
 {
 
     Controllers.RegistroController registro;
+    FileResult photo;
+
+    public List<Pin> Pins { get; set; } = new List<Pin>();
 
     public PageInicio()
 	{
@@ -84,4 +87,21 @@ public partial class PageInicio : ContentPage
     }
 
 
-}
+
+    private async void btnFoto_Clicked(object sender, EventArgs e)
+
+    {
+
+        photo = await MediaPicker.CapturePhotoAsync();
+        if (photo != null)
+        {
+            string path = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+            using Stream sourcephoto = await photo.OpenReadAsync();
+            using FileStream StreamLocal = File.OpenWrite(path);
+
+            foto.Source = ImageSource.FromStream(() => photo.OpenReadAsync().Result);
+            await sourcephoto.CopyToAsync(StreamLocal);
+        }
+    }
+
+  }
