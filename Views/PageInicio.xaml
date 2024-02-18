@@ -3,37 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Tarea_1._3_Aplicacion_de_Autores.Views.PageInicio"
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
-             xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
+xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
              Title="Biblioteca UTH Autores de Libros">
     <ScrollView>
-    <VerticalStackLayout
+        <VerticalStackLayout
         Padding="30,0"
         Spacing="25">
 
-        <Image Source="loguito.png" Aspect="AspectFit" WidthRequest="200" HeightRequest="200" />
+            <Image Source="loguito.png" Aspect="AspectFit" WidthRequest="200" HeightRequest="200" />
 
-        <Label x:Name="textNombre" Text="Nombre del Autor:"/>
-        <Entry x:Name="nombres" Placeholder="Ingrese Nombres" Keyboard="Text"/>
-
-            <maps:Map x:Name="map" IsShowingUser="True" MapClicked="Map_OnMapClicked" HeightRequest="200" WidthRequest="250" TranslationY="-200">
+            <maps:Map x:Name="map" IsShowingUser="True"  IsVisible="False">
                 <maps:Map.ItemTemplate>
                     <DataTemplate x:DataType="maps:Pin">
                         <maps:Pin Location="{Binding Location}"
-              Address="{Binding Address}"
-              Label="{Binding Label}"/>
+                                  Address="{Binding Address}"
+                                  Label="{Binding Label}"/>
                     </DataTemplate>
                 </maps:Map.ItemTemplate>
 
             </maps:Map>
-
             <Entry x:Name="Latitud" Placeholder="Ingrese latitud"  Keyboard="Text"/>
             <Entry x:Name="Longitud" Placeholder="Ingrese Longitud" Keyboard="Text"/>
             <Entry x:Name="Descripcion" Placeholder="Ingrese una descripción" Keyboard="Text"/>
-            <Button x:Name="BtnSearchAddress" Text="BUSCAR" Clicked="GetValueDescription"/>
 
-            <Button x:Name="btnguardar"  Clicked="Button_Clicked"/>
+            <Button x:Name="btnguardar" Text="Guardar" Clicked="GetValueDescription"/>
+            
+            <Button x:Name="btnverlista" Text="Ver Lista" Clicked="btnverlista_Clicked"/>
+
 
         </VerticalStackLayout>
-    
-</ScrollView>
+
+    </ScrollView>
 </ContentPage>

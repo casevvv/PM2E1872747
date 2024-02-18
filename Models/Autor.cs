@@ -16,10 +16,10 @@ namespace Tarea_1._3_Aplicacion_de_Autores.Models
         public int Id { get; set; }
 
         [MaxLength(100)]
-        public string Latitud { get; set; }
+        public double Latitud { get; set; }
 
         [MaxLength(100)]
-        public string Longitud { get; set; }
+        public double Longitud { get; set; }
 
         [MaxLength(100)]
         public string Descripcion { get; set; }

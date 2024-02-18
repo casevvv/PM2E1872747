@@ -41,24 +41,33 @@ namespace Tarea_1._3_Aplicacion_de_Autores.Controllers
         }
 
         // READ
-        public async Task<List<Registro>> ObtenerListaAutores()
+        public async Task<List<Registro>> ObtenerListaMapas()
         {
            
             return await _connection.Table<Registro>().ToListAsync();
         }
 
         // READ elemento
-        public async Task<Registro> ObtenerAutor(int id)
+        public async Task<Registro> ObtenerMapa(int id)
         {
             
             return await _connection.Table<Registro>().Where(i => i.Id == id).FirstOrDefaultAsync();
         }
 
         // DELETE
-        public async Task<int> EliminarAutor(Registro autor)
+        public async Task<int> EliminarRegistro(Registro mapa)
         {
             
-            return await _connection.DeleteAsync(autor);
+            return await _connection.DeleteAsync(mapa);
+        }
+
+        // Método para buscar autores por nombre
+        public async Task<List<Registro>> BuscarMapa(string textoBusqueda)
+        {
+            // Realizar la búsqueda utilizando LINQ
+            return await _connection.Table<Registro>()
+                                    .Where(a => a.Descripcion.Contains(textoBusqueda))
+                                    .ToListAsync();
         }
     }
 }

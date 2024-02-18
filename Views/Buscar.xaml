@@ -1,0 +1,40 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tarea_1._3_Aplicacion_de_Autores.Views.Buscar"
+             Title="Buscador de Autores">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Buscar" Clicked="ToolbarItem_Clicked"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout Padding="30">
+            <!-- Entry para buscar -->
+            <Entry x:Name="SearchText" Placeholder="Buscar Dirección" Text="{Binding SearchText}" />
+
+            <!-- Colección de autores -->
+            <CollectionView x:Name="ListaMapas" SelectionMode="Single" SelectionChanged="ListaMapas_SelectionChangedAsync">
+                
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="15" />
+                </CollectionView.ItemsLayout>
+                
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text=" - (" />
+                            <Label Text="{Binding Descripcion}" />
+                            <Label Text=")" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            
+            </CollectionView>
+       
+        </StackLayout>
+    
+    </ContentPage.Content>
+</ContentPage>
+
+
+
