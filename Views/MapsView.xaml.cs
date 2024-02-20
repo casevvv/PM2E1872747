@@ -117,7 +117,7 @@ public partial class MapsView : ContentPage
 
                 pin.MarkerClicked += Pin_MarkerClicked;
                 map.Pins.Add(pin);
-                map.MoveToRegion(MapSpan.FromCenterAndRadius(newLocation, Distance.FromMiles(10)));
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(newLocation, Distance.FromMeters(1000)));
             }
             else
             {
@@ -129,12 +129,6 @@ public partial class MapsView : ContentPage
             Console.WriteLine($"Error al obtener la descripción de la dirección: {ex.Message}");
         }
     }
-
-    private async void DisplayAlert(string title, string message)
-    {
-        await Application.Current.MainPage.DisplayAlert(title, message, "OK");
-    }
-
 
     private async void Pin_MarkerClicked(object sender, PinClickedEventArgs e)
     {

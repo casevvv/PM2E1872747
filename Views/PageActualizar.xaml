@@ -2,11 +2,40 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Tarea_1._3_Aplicacion_de_Autores.Views.PageActualizar"
-             Title="PageActualizar">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
+             Title="Actualizar Datos">
+
+
+    <ScrollView>
+        <VerticalStackLayout
+    Padding="30,0"
+    Spacing="25">
+
+
+            <Image x:Name="foto" BackgroundColor="AliceBlue" HeightRequest="308" WidthRequest="300"
+           HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Button Text="Seleccionar una imagen" x:Name="btnFotoAct" Clicked="btnFoto_ClickedAct"/>
+
+            <maps:Map x:Name="map" IsVisible="False">
+                <maps:Map.ItemTemplate>
+                    <DataTemplate x:DataType="maps:Pin">
+                        <maps:Pin Location="{Binding Location}"
+                              Address="{Binding Address}"
+                              Label="{Binding Label}"/>
+                    </DataTemplate>
+                </maps:Map.ItemTemplate>
+
+            </maps:Map>
+            <Entry x:Name="LatitudAct" Placeholder="Latitud"  IsEnabled="False" Keyboard="Text"/>
+            <Entry x:Name="LongitudAct" Placeholder="Longitud" IsEnabled="False" Keyboard="Text"/>
+            <Entry x:Name="DescripcionAct" Placeholder="Ingrese una descripción" Keyboard="Text"/>
+
+            <Button x:Name="btnguardarAct" Text="Actualizar" Clicked="ActualizarRegistro"/>
+
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>

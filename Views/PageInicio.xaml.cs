@@ -8,7 +8,7 @@ public partial class PageInicio : ContentPage
 {
 
     Controllers.RegistroController registro;
-    FileResult photo;
+    string fotoPath;
 
     public List<Pin> Pins { get; set; } = new List<Pin>();
 
@@ -27,59 +27,82 @@ public partial class PageInicio : ContentPage
     private async void GetValueDescription(object sender, EventArgs e)
     {
         // Realiza la búsqueda de dirección en el mapa
-        String address = Descripcion.Text;
+        string address = Descripcion.Text;
 
-        if(string.IsNullOrEmpty(address)) {
-            await DisplayAlert("Error", "Ingresa una dirección valida", "OK");
+        if (string.IsNullOrEmpty(address))
+        {
+            await DisplayAlert("Error", "Ingresa una dirección", "OK");
             return;
         }
 
         IEnumerable<Location> locations = await Geocoding.Default.GetLocationsAsync(address);
 
-        var newLocation = locations?.FirstOrDefault();
-        var dataAddress = "";
-        var city = "";
-
-        if (newLocation != null)
+        Location newLocation = locations?.FirstOrDefault();
+        if (newLocation == null)
         {
+            await DisplayAlert("Error", $"La dirección '{address}' no pudo ser encontrada.", "OK");
+            return;
+        }
 
-            Latitud.Text = newLocation.Latitude.ToString();
-            Longitud.Text = newLocation.Longitude.ToString();
+        double latitud = newLocation.Latitude;
+        double longitud = newLocation.Longitude;
 
-            double latitud;
-            double longitud;
-
-            if (double.TryParse(Latitud.Text, out latitud) && double.TryParse(Longitud.Text, out longitud))
+        if (IsValidLatitude(latitud) && IsValidLongitude(longitud))
+        {
+            try
             {
-
-                var Registro = new Models.Registro
+                Models.Registro registro = new Models.Registro
                 {
-                    Longitud = longitud,
+                    Imagen = fotoPath,
                     Latitud = latitud,
-                    Descripcion = Descripcion.Text
-
+                    Longitud = longitud,
+                    Descripcion = address
                 };
 
-                if (await registro.AgregarRegistro(Registro) > 0)
+
+                if (await this.registro.AgregarRegistro(registro) > 0)
                 {
                     await DisplayAlert("Éxito", "Registro guardado exitosamente.", "OK");
-                    Longitud.Text = string.Empty;
-                    Latitud.Text = string.Empty;
-                    Descripcion.Text = string.Empty;
+                    // Limpiar los campos después de guardar
+                    LimpiarCampos();
+                }
+                else
+                {
+                    await DisplayAlert("Error", "Error al guardar el registro.", "OK");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                await DisplayAlert("Error", "Ingresa una dirección valida", "OK");
-                return;
+                Console.WriteLine($"Error al guardar el registro: {ex.Message}");
+                await DisplayAlert("Error", "Error al guardar el registro.", "OK");
             }
-
         }
         else
         {
-            await DisplayAlert("¡Dirección no encontrada!", $"La dirección '{address}' no pudo ser encontrada.", "OK");
+            await DisplayAlert("Error", "Latitud y longitud no válidas.", "OK");
         }
     }
+
+    private void LimpiarCampos()
+    {
+        Longitud.Text = string.Empty;
+        Latitud.Text = string.Empty;
+        Descripcion.Text = string.Empty;
+        foto.Source = null;
+    }
+
+    private bool IsValidLatitude(double latitude)
+    {
+        // Validar latitud según su rango
+        return latitude >= -90 && latitude <= 90;
+    }
+
+    private bool IsValidLongitude(double longitude)
+    {
+        // Validar longitud según su rango
+        return longitude >= -180 && longitude <= 180;
+    }
+
 
     public async void btnverlista_Clicked(object sender, EventArgs e)
     {
@@ -89,19 +112,29 @@ public partial class PageInicio : ContentPage
 
 
     private async void btnFoto_Clicked(object sender, EventArgs e)
-
     {
 
-        photo = await MediaPicker.CapturePhotoAsync();
+        var photo = await MediaPicker.CapturePhotoAsync();
         if (photo != null)
         {
-            string path = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
-            using Stream sourcephoto = await photo.OpenReadAsync();
-            using FileStream StreamLocal = File.OpenWrite(path);
+            string fileName = photo.FileName;
+            string path = Path.Combine(FileSystem.CacheDirectory, fileName);
 
-            foto.Source = ImageSource.FromStream(() => photo.OpenReadAsync().Result);
-            await sourcephoto.CopyToAsync(StreamLocal);
+            using (Stream sourcephoto = await photo.OpenReadAsync())
+            using (FileStream StreamLocal = File.OpenWrite(path))
+            {
+                await sourcephoto.CopyToAsync(StreamLocal);
+            }
+
+            foto.Source = ImageSource.FromFile(path);
+
+            // Guardar la ruta de la imagen en la variable fotoPath
+            fotoPath = path;
+
+
         }
+
+       
     }
 
   }

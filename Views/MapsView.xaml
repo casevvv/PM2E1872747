@@ -4,7 +4,7 @@
              x:Class="Tarea_1._3_Aplicacion_de_Autores.Views.MapsView"
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
              xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
-             Title="MapsView">
+             Title="Vista en el mapa">
     <VerticalStackLayout Padding="30,0" Spacing="25">
 
         <maps:Map x:Name="map" IsShowingUser="True" MaximumHeightRequest="600">

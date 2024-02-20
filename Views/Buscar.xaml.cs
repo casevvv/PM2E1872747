@@ -21,7 +21,7 @@ public partial class Buscar : ContentPage
 
     }
 
-    private async void ToolbarItem_Clicked(object sender, EventArgs e)
+    private async void ToolbarItem_Clicked(object sender, EventArgs eq)
     {
         // Obtener el texto de búsqueda del Entry
         string textoBusqueda = SearchText.Text;
@@ -39,7 +39,7 @@ public partial class Buscar : ContentPage
         {
             // Obtener el elemento seleccionado de la lista
             Registro registroSeleccionado = (Registro)e.CurrentSelection[0];
-            // Display options to the user
+
             string action = await DisplayActionSheet("Options", "¿Ir a ésta ubicación?", "Actualizar", "Eliminar");
 
             // Mostrar un cuadro de diálogo para preguntar al usuario

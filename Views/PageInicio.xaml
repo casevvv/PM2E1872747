@@ -4,7 +4,7 @@
              x:Class="Tarea_1._3_Aplicacion_de_Autores.Views.PageInicio"
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
 xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
-             Title="Biblioteca UTH Autores de Libros">
+             Title="Site Visitor APP">
     <ScrollView>
         <VerticalStackLayout
         Padding="30,0"
@@ -25,8 +25,8 @@ xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.M
                 </maps:Map.ItemTemplate>
 
             </maps:Map>
-            <Entry x:Name="Latitud" Placeholder="Ingrese latitud"  Keyboard="Text"/>
-            <Entry x:Name="Longitud" Placeholder="Ingrese Longitud" Keyboard="Text"/>
+            <Entry x:Name="Latitud" Placeholder="Latitud" IsEnabled="False" Keyboard="Numeric"/>
+            <Entry x:Name="Longitud" Placeholder="Longitud" IsEnabled="False" Keyboard="Numeric"/>
             <Entry x:Name="Descripcion" Placeholder="Ingrese una descripción" Keyboard="Text"/>
 
             <Button x:Name="btnguardar" Text="Guardar" Clicked="GetValueDescription"/>

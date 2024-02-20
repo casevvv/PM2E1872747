@@ -23,5 +23,7 @@ namespace Tarea_1._3_Aplicacion_de_Autores.Models
 
         [MaxLength(100)]
         public string Descripcion { get; set; }
+
+        public string Imagen { get; set; }
     }
 }

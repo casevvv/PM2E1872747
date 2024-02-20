@@ -28,16 +28,29 @@ namespace Tarea_1._3_Aplicacion_de_Autores.Controllers
         // CREATE
         public async Task<int> AgregarRegistro(Registro registro)
         {
-
-            if (registro.Id == 0)
-            {
                 return await _connection.InsertAsync(registro);
-            }
-            else
+
+        }
+
+        public async Task<int> ActualizarRegistro(Registro registro)
+        {
+            try
             {
+                if (registro == null)
+                    throw new ArgumentNullException(nameof(registro), "El registro no puede ser nulo");
+
+                if (registro.Id == 0)
+                    throw new ArgumentException("El ID del registro no puede ser cero", nameof(registro.Id));
+
                 return await _connection.UpdateAsync(registro);
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al actualizar el registro: {ex.Message}");
+                throw; // Lanza la excepción original para que sea manejada en un nivel superior
+            }
         }
+
 
         // READ
         public async Task<List<Registro>> ObtenerListaMapas()
